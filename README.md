@@ -1,4 +1,4 @@
-arduino-notification-alarm
+arduino-dialer-gsm
 =================
 
 Sketch for Arduino + GSM Shield for notification alarm with SMS
