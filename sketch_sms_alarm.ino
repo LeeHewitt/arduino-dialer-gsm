@@ -1,6 +1,6 @@
 /*
 
- Alarm notification
+ arduino-dialer-gsm
  
  created 04/04/2013
  by Hacklix
