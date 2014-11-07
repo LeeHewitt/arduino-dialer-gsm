@@ -2,8 +2,8 @@
 
  arduino-dialer-gsm
  
- created 04/04/2013
- by Hacklix
+ created 04/04/2013  modified  07/11/2014
+ by Hacklix              by    Lee Hewitt
  
  */
 
@@ -18,13 +18,17 @@
 #define SMSNUMBER4 ""
 
 //en: initial boot message
-#define SMSSTART "LH Test Message"
+#define SMS_START "LH Test Message"
+
 //en: low pressure message 
 #define SMS_LOW_PRESSURE "WARNING: Low Pressure"
+
 //en: high pressure message
 #define SMS_HIGH_PRESSURE "WARNING:High Pressure"
+
 //en: power failure message
 #define SMS_POWER_FAILURE "POWER FAILURE"
+
 
 GSM gsmAccess;
 GSM_SMS sms;
@@ -68,7 +72,7 @@ void setup()
   pinMode(low_pressure_pin, INPUT);
   pinMode(high_pressure_pin, INPUT);
   
-  sendSms(SMSNUMBER1,SMSSTART);
+  sendSms(SMSNUMBER1,SMS_START);
 }
 
 
@@ -79,19 +83,19 @@ void loop()
   //TODO: READ SMS
 
   //BLACKOUT 
-  if(blackout != digitalRead(low_pressure_pin))
+  if(lowpressure != digitalRead(low_pressure_pin))
   {
      
      Serial.println("\nlow pressure pin chenged\n"); //DEBUG
 
-     blackout = digitalRead(low_pressure_pin);
+     lowpressure = digitalRead(low_pressure_pin);
      
-     if(blackout == 1){
+     if(lowpressure == 1){
         sendSms(SMSNUMBER1,SMS_LOW_PRESSURE);
         //sendSms(SMSNUMBER2,SMSBLACKOUT);
         //sendSms(SMSNUMBER3,SMSBLACKOUT);
         //sendSms(SMSNUMBER4,SMSBLACKOUT);
-        sendHttp(SMSBLACKOUT);
+        sendHttp(SMS_LOW_PRESSURE);
      }else{
         sendSms(SMSNUMBER1,SMSBLACKOUTOFF);      
         sendHttp(SMSBLACKOUTOFF);
