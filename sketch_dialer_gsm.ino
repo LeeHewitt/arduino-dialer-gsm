@@ -30,8 +30,8 @@ GSM gsmAccess;
 GSM_SMS sms;
 boolean sendhttp = false;
 
-const int low_pressure = 5;
-const int high_pressure = 6;
+const int low_pressure_pin = 5;
+const int high_pressure_pin = 6;
 
 int lowpressure = 0;
 int highpressure = 0;
@@ -65,8 +65,8 @@ void setup()
 
   Serial.println("GSM initialized");
   
-  pinMode(blackoutPin, INPUT);
-  pinMode(intrusionPin, INPUT);
+  pinMode(low_pressure_pin, INPUT);
+  pinMode(high_pressure_pin, INPUT);
   
   sendSms(SMSNUMBER1,SMSSTART);
 }
@@ -79,15 +79,15 @@ void loop()
   //TODO: READ SMS
 
   //BLACKOUT 
-  if(blackout != digitalRead(blackoutPin))
+  if(blackout != digitalRead(low_pressure_pin))
   {
      
-     Serial.println("\nblackout chenged\n"); //DEBUG
+     Serial.println("\nlow pressure pin chenged\n"); //DEBUG
 
-     blackout = digitalRead(blackoutPin);
+     blackout = digitalRead(low_pressure_pin);
      
      if(blackout == 1){
-        sendSms(SMSNUMBER1,SMSBLACKOUT);
+        sendSms(SMSNUMBER1,SMS_LOW_PRESSURE);
         //sendSms(SMSNUMBER2,SMSBLACKOUT);
         //sendSms(SMSNUMBER3,SMSBLACKOUT);
         //sendSms(SMSNUMBER4,SMSBLACKOUT);
